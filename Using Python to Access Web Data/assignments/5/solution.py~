@@ -1,0 +1,21 @@
+## xml assignment solution
+
+import urllib
+import xml.etree.ElementTree as ET
+
+
+while True:
+    address = raw_input('Enter location: ')
+    if len(address) < 1 : break
+
+    print 'Retrieving', address
+    uh = urllib.urlopen(address)
+    data = uh.read()
+    print 'Retrieved', len(data), 'characters'
+    
+    root = ET.fromstring(data)
+    numbersList = []
+    for neighbor in root.iter('count'):
+         numbersList.append((int(neighbor.text)))
+    print "Count:", len(numbersList)
+    print "Sum: ", sum(numbersList)
